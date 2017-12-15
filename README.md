@@ -43,7 +43,7 @@ Obs: restoring this dump would require at least 100 Gb of free space. If your Op
 
 ### Results
 
-The results are displayed in the terminal but also stored in the database in tables ** experiment ** and ** recallrate ** . The following query should return the results:  
+The results are displayed in the terminal but also stored in the database in tables **experiment** and **recallrate** . The following query should return the results:  
 `select * from experiment e, recallrate r where e.id = r.experiment_id order by e.lote,e.id desc, origem `
 
 
