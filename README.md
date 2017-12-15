@@ -13,7 +13,7 @@ Softwares:
 
 
 ### Installing the app.
-1. Download the SO Dump of March 2017 [here]. 
+1. Download the SO Dump of March 2017. [here] we provide two dumps. Both contains the main tables we use. They differs only in **posts** table. In one of them the table contains the original content. The other is stemmed and had the stop words removed. The next steps are described considered the fastest way to reproduce DupPredictor, in other words, the stemmed/stopped dump. If you desire to simulate the entire process, including the stemming and stop words removal, follow the instructions available in [here].
 2. On your DB tool, create a new database named stackoverflow2017. This is a query example:
 ```
 CREATE DATABASE stackoverflow2017
@@ -28,7 +28,7 @@ CREATE DATABASE stackoverflow2017
 
 Obs: restoring this dump would require at least 100 Gb of free space. If your Operation System runs in a partition with insufficient free space, create a tablespace pointing to a larger partition and associate the database to it by replacing the "TABLESPACE" value to the new tablespace name: `TABLESPACE = tablespacename`. 
 
-4. Assert the database contains is sound. Execute the following SQL command: `select ...`. The return should be ...
+4. Assert that the database is sound. Execute the following SQL command: `select title,body,tags,tagssyn,code  from posts where title is not null limit 10`. The return should list the main fields for 10 posts. 
 
 5. Assert your Mallet instalation is sound. In a Terminal, go to your Mallet folder and execute the command: `bin/mallet --help`. This should return a list of commands. 
 
@@ -93,3 +93,4 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 [Postgres 9.3]: https://www.postgresql.org/download/
 [PgAdmin]: https://www.pgadmin.org/download/
 [here]: http://lapes.ufu.br/so/
+[here]: http://lapes.ufu.br/so/2222
