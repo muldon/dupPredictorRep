@@ -35,11 +35,7 @@ Obs: restoring this dump would require at least 100 Gb of free space. If your Op
 
 ## Running the tests
 
-1. Edit the file "application.properties" and set the parameters bellow "##### INPUT PARAMETERS #####". The file comes with default values for simulating DupPredictor original work. You need to fill only two variables:
-
-`spring.datasource.password=YOUR_DB_PASSWORD`
-and
-`mallet.dir = YOUR_MALLET_DIR`
+1. Edit the file "application.properties" and set the parameters bellow "##### INPUT PARAMETERS #####". The file comes with default values for simulating DupPredictor original work. You need to fill only two variables: `spring.datasource.password=YOUR_DB_PASSWORD` and `mallet.dir = YOUR_MALLET_DIR`.
 
 2. In a terminal, go to the projectdir/target and run the command to execute DupPredictorRep: 
 `java -Xms1024M -Xmx40g -jar ./duppredictor.jar`. The Xmx value may be bigger if you change the "maxCreationDate" parameter to a more recent date. 
@@ -48,7 +44,6 @@ and
 ### Results
 
 The results are displayed in the terminal but also stored in the database in tables ** experiment ** and ** recallrate ** . The following query should return the results:  
-
 `select * from experiment e, recallrate r where e.id = r.experiment_id order by e.lote,e.id desc, origem `
 
 
