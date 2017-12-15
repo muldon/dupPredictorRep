@@ -10,7 +10,7 @@ Softwares:
 2. [Mallet]
 3. [Postgres 9.3]
 4. [PgAdmin] (we used PgAdmin 3) but feel free to use any DB tool for PostgreSQL. 
-
+5. [Maven 3](https://maven.apache.org/)
 
 ### Installing the app.
 1. Download the SO [Dump of March 2017]. We provide two dumps where both contains the main tables we use. They differs only in **posts** table. In one of them the table contains the original content, while the other is stemmed and had the stop words removed. The next steps are described considered the fastest way to reproduce DupPredictor, in other words, the stemmed/stopped dump. If you desire to simulate the entire process, including the stemming and stop words removal, follow the instructions available in [preprocess] for stemming and removing the stop words, then procceed in next steps.
@@ -32,13 +32,15 @@ Obs: restoring this dump would require at least 100 Gb of free space. If your Op
 
 5. Assert your Mallet instalation is sound. In a Terminal, go to your Mallet folder and execute the command: `bin/mallet --help`. This should return a list of commands. 
 
+6. Assert Maven is correctly installed. In a Terminal enter with the command: `mvn --version`. This should return the version of Maven. 
 
 ## Running the tests
 
 1. Edit the file "application.properties" and set the parameters bellow "##### INPUT PARAMETERS #####". The file comes with default values for simulating DupPredictor original work. You need to fill only two variables: `spring.datasource.password=YOUR_DB_PASSWORD` and `mallet.dir = YOUR_MALLET_DIR`.
 
-2. In a terminal, go to the projectdir/target and run the command to execute DupPredictorRep: 
-`java -Xms1024M -Xmx40g -jar ./duppredictor.jar`. The Xmx value may be bigger if you change the "maxCreationDate" parameter to a more recent date. 
+2. In a terminal, go to the Project_folder and build the jar file with the Maven command: `mvn package -Dmaven.test.skip=true`. Assert that duppredictor.jar is built under target folder. 
+
+3. Go to Project_folder/target and run the command to execute DupPredictorRep: `java -Xms1024M -Xmx40g -jar ./duppredictor.jar`. The Xmx value may be bigger if you change the "maxCreationDate" parameter to a more recent date. 
 
 
 ### Results
@@ -66,4 +68,4 @@ The results are displayed in the terminal but also stored in the database in tab
 [Postgres 9.3]: https://www.postgresql.org/download/
 [PgAdmin]: https://www.pgadmin.org/download/
 [Dump of March 2017]: http://lapes.ufu.br/so/
-[preprocess]: http://lapes.ufu.br/so/2222
+[preprocess]: https://github.com/muldon/preprocessor
