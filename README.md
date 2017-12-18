@@ -96,6 +96,7 @@ There are 2 possibilities:
 a) Estimating weights: set the variables `estimateWeights = true`, `calculateRecallRates = false`. Leave the others in their default values. This will simulate the estimation of weights phase of the paper. See the results for the weights. 
 
 b) Running the app with topics enabled: 
+
 First, enable topics by setting `useLDA = true`, `buildMalletTopicFiles = true`, `calculateRecallRates = false`. Leave the other variables in their default values. Run the app (see **Running a quick test**). After this, assert that in folder *mallet.dir/topics* contains almost 2 milion text files.
 
 Second, run mallet commands (this is a lot faster than running through the app): in a terminal, go to your *mallet.dir* folder and execute `bin/mallet import-dir --input topics --output topic.mallet --keep-sequence`. Use the generated file *topic.mallet* to train topics by executing the command: `bin/mallet train-topics --input topic.mallet --num-topics 100 --output-state topic-state.gz --output-topic-keys topics_keys.txt --output-doc-topics topics_duppredictor.txt`. 
