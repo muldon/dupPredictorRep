@@ -34,14 +34,73 @@ Obs: restoring this dump would require at least 100 Gb of free space. If your Op
 
 6. Assert Maven is correctly installed. In a Terminal enter with the command: `mvn --version`. This should return the version of Maven. 
 
-## Running the tests
 
-1. Edit the file *application.properties* under *src/main/resources* and set the parameters bellow "##### INPUT PARAMETERS #####". The file comes with default values for simulating DupPredictor original work. You need to fill only two variables: `spring.datasource.password=YOUR_DB_PASSWORD` and `mallet.dir = YOUR_MALLET_DIR`.
+## Setting parameters
 
-2. In a terminal, go to the Project_folder and build the jar file with the Maven command: `mvn package -Dmaven.test.skip=true`. Assert that duppredictor.jar is built under target folder. 
+Edit the file *application.properties* under *src/main/resources* and set the parameters bellow "##### INPUT PARAMETERS #####". The file comes with default values for simulating DupPredictor original work. You need to fill only two variables: `spring.datasource.password=YOUR_DB_PASSWORD` and `mallet.dir = YOUR_MALLET_DIR`.
 
-3. Go to Project_folder/target and run the command to execute DupPredictorRep: `java -Xms1024M -Xmx40g -jar ./duppredictor.jar`. The Xmx value may be bigger if you change the "maxCreationDate" parameter to a more recent date. 
+Obs: the file *application.properties* have 3 steps, where in each one you can set parameters. Default values for *application.properties*:
 
+```
+spring.datasource.url=jdbc:postgresql://localhost:5432/stackoverflow2017
+spring.datasource.username=postgres
+spring.datasource.password=YOUR_DB_PASSWORD
+
+mallet.dir = PATH_TO_MALLET/mallet-2.0.8
+
+##--------------------------step 1---------------------
+useLDA 	   = false
+numTopics  = 100
+buildMalletTopicFiles = false
+runMalletCommands     = false
+loadVectorsToDB       = false
+
+##--------------------------step 2---------------------
+estimateWeights = false
+trainingPercentOfQuestions = 20
+
+##--------------------------step 3---------------------
+calculateRecallRates = true
+observation = simulating duppredictor
+closedDuplicatedNonMastersLimit = 1528
+#closedDuplicatedNonMastersLimit = 
+allQuestionsByFiltersLimit    =  2000000
+#allQuestionsByFiltersLimit    =  
+maxResultSize = 1000
+#testingPercentOfQuestions = 10
+testingPercentOfQuestions = 100
+
+tagFilter = 
+
+#yyyy-mm-dd
+#The paper extracts the first 2M posts < 2011-10-01 
+maxCreationDate = 2011-10-01
+lote = 1
+```
+
+## Running a quick test
+
+1. Leave the file *application.properties* with default values. In a terminal, go to the Project_folder and build the jar file with the Maven command: `mvn package -Dmaven.test.skip=true`. Assert that duppredictor.jar is built under target folder. 
+
+2. Go to Project_folder/target and run the command to execute DupPredictorRep: `java -Xms1024M -Xmx40g -jar ./duppredictor.jar`. The Xmx value may be bigger if you change the "maxCreationDate" parameter to a more recent date. 
+
+Obs: the complete test where LDA is enabled take too long, so the default parameters have LDA disabled. If you want to perform a full test, go to the the next section. 
+
+
+## Running a complete test (optinal)
+
+1. Edit the file *application.properties*. 
+
+There are 2 possibilities: 
+a) Estimating weights: set the variables `estimateWeights = true`, `calculateRecallRates = false`. Leave the others in their default values. This will simulate the estimation of weights phase of the paper. See the results for the weights. 
+
+b) Running the app with topics enabled. 
+
+First, enable topics by setting `useLDA = true`, `buildMalletTopicFiles = true`, `calculateRecallRates = false`. Leave the other variables in their default values. Run the app (see **Running a quick test**). After this, assert that in folder *mallet.dir/topics* contains almost 2 milion text files.
+
+Second, run mallet commands (this is a lot faster than running through the app): in a terminal, go to your *mallet.dir* folder and execute `bin/mallet import-dir --input topics --output topic.mallet --keep-sequence`. Use the generated file *topic.mallet* to train topics by executing the command: `bin/mallet train-topics --input topic.mallet --num-topics 100 --output-state topic-state.gz --output-topic-keys topics_keys.txt --output-doc-topics topics_duppredictor.txt`. 
+
+Third, set variables: `useLDA = true`, `buildMalletTopicFiles = false`, `loadVectorsToDB = true`, `calculateRecallRates = true`. Leave the other variables in their default values. Run the app (see **Running a quick test**). 
 
 ### Results
 
