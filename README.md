@@ -9,7 +9,18 @@ Softwares:
 1. [Java 1.8] 
 2. [Mallet]
 3. [Postgres 9.3]
-4. [PgAdmin] (we used PgAdmin 3) but feel free to use any DB tool for PostgreSQL. 
+3. [PgAdmin] (we used PgAdmin 3) but feel free to use any DB tool for PostgreSQL. Configure your DB to accept local connections. An example of *pg_hba.conf* configuration:
+
+```
+...
+# TYPE  DATABASE        USER            ADDRESS                 METHOD
+# "local" is for Unix domain socket connections only
+local   all             all                                     md5
+# IPv4 local connections:
+host    all             all             127.0.0.1/32            md5
+...
+```
+
 5. [Maven 3](https://maven.apache.org/)
 
 ### Installing the app.
@@ -37,7 +48,7 @@ Obs: restoring this dump would require at least 100 Gb of free space. If your Op
 
 ## Setting parameters
 
-Edit the file *application.properties* under *src/main/resources* and set the parameters bellow "##### INPUT PARAMETERS #####". The file comes with default values for simulating DupPredictor original work. You need to fill only two variables: `spring.datasource.password=YOUR_DB_PASSWORD` and `mallet.dir = YOUR_MALLET_DIR`.
+Edit the file *application.properties* under *src/main/resources* and set the parameters bellow "##### INPUT PARAMETERS #####". The file comes with default values for simulating DupPredictor original work. You need to fill only two variables: `spring.datasource.password=YOUR_DB_PASSWORD` and `mallet.dir = YOUR_MALLET_DIR`. Change `spring.datasource.username` if your db user is not postgres. 
 
 Obs: the file *application.properties* have 3 steps, where in each one you can set parameters. Default values for *application.properties*:
 
