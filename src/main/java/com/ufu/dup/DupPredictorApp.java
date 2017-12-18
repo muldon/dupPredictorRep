@@ -159,8 +159,8 @@ public class DupPredictorApp {
 		generalInitTime =  System.currentTimeMillis();
 		logger.info("Initializing DupPredictor...");
 		dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-		this.PATH_MALLET = malletDir;
-		this.PATH_MALLET_TOPIC = PATH_MALLET + "/topics/";
+		this.PATH_MALLET = StringUtils.trim(malletDir);
+		this.PATH_MALLET_TOPIC = StringUtils.trim(PATH_MALLET + "/topics/");
 		decimalFormat = new DecimalFormat("##.##");
 		decimalFormat.setRoundingMode(RoundingMode.DOWN);
 		vectorsLoadedToQuestions = false;
