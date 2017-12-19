@@ -8,8 +8,7 @@ Note: all the experiments were conducted over a server equipped with 80 GB RAM, 
 Softwares:
 1. [Java 1.8] 
 2. [Mallet]
-3. [Postgres 9.3]
-3. [PgAdmin] (we used PgAdmin 3) but feel free to use any DB tool for PostgreSQL. Configure your DB to accept local connections. An example of *pg_hba.conf* configuration:
+3. [Postgres 9.3] - Configure your DB to accept local connections. An example of *pg_hba.conf* configuration:
 
 ```
 ...
@@ -20,6 +19,7 @@ local   all             all                                     md5
 host    all             all             127.0.0.1/32            md5
 ...
 ```
+3. [PgAdmin] (we used PgAdmin 3) but feel free to use any DB tool for PostgreSQL. 
 
 5. [Maven 3](https://maven.apache.org/)
 
@@ -85,12 +85,12 @@ testingPercentOfQuestions = 100
 tagFilter = 
 
 #yyyy-mm-dd
-#The paper extracts the first 2M posts < 2011-10-01 
+#The paper extracts the first 2M posts < 2011-10-01. You can change the year to more a recent one, ex: 2013-10-01. 
 maxCreationDate = 2011-10-01
 lote = 1
 ```
 
-## Running a quick test
+## Running the experiment - the quickest way
 
 1. Leave the file *application.properties* with default values. In a terminal, go to the Project_folder and build the jar file with the Maven command: `mvn package -Dmaven.test.skip=true`. Assert that duppredictor.jar is built under target folder. 
 
@@ -99,7 +99,7 @@ lote = 1
 Obs: the complete test where LDA is enabled take too long, so the default parameters have LDA disabled. If you want to perform a full test, go to the the next section. 
 
 
-## Running a complete test (optinal)
+## Running the experiment - other options 
 
 1. Edit the file *application.properties*. 
 
@@ -109,17 +109,25 @@ a) Estimating weights: set the variables `estimateWeights = true`, `calculateRec
 
 b) Running the app with topics enabled: 
 
-First, enable topics by setting `useLDA = true`, `buildMalletTopicFiles = true`, `calculateRecallRates = false`. Leave the other variables in their default values. Run the app (see **Running a quick test**). After this, assert that in folder *mallet.dir/topics* contains almost 2 milion text files.
+First, enable topics by setting `useLDA = true`, `buildMalletTopicFiles = true`, `calculateRecallRates = false`. Leave the other variables in their default values. Run the app (see **Running the experiment - the quickest way**). After this, assert that in folder *mallet.dir/topics* contains almost 2 milion text files.
 
 Second, run mallet commands (this is a lot faster than running through the app): in a terminal, go to your *mallet.dir* folder and execute `bin/mallet import-dir --input topics --output topic.mallet --keep-sequence`. Use the generated file *topic.mallet* to train topics by executing the command: `bin/mallet train-topics --input topic.mallet --num-topics 100 --output-state topic-state.gz --output-topic-keys topics_keys.txt --output-doc-topics topics_duppredictor.txt`. 
 
-Third, set variables: `useLDA = true`, `buildMalletTopicFiles = false`, `loadVectorsToDB = true`, `calculateRecallRates = true`. Leave the other variables in their default values. Run the app (see **Running a quick test**). 
+Third, set variables: `useLDA = true`, `buildMalletTopicFiles = false`, `loadVectorsToDB = true`, `calculateRecallRates = true`. Leave the other variables in their default values. Run the app (see **Running the experiment - the quickest way**). 
 
 ### Results
 
-The results are displayed in the terminal but also stored in the database in tables **experiment** and **recallrate** . The following query should return the results:  
-`select * from experiment e, recallrate r where e.id = r.experiment_id order by e.lote,e.id desc, origem `
-
+The results are displayed in the terminal but also stored in the database in tables **experiment** and **recallrate** . The following query should return the results:  
+```
+select e.id, e.numberoftestedquestions, e.observacao as observation,r.recallrate_100,r.recallrate_50, r.recallrate_20,r.recallrate_10,r.recallrate_5
+from experiment e, recallrate r
+where e.id = r.experiment_id
+and app = 'DupPredictor'
+--and e.estimateweights=true
+--and e.lote=100
+order by e.id desc`
+```
+this query shows the number of tested questions, the observation filled in *application.properties* file and several values for recall rates. You can uncomment `and e.estimateweights=true` to filter only the results for option *Estimating weights* phase of uncomment `and e.lote=100` to filter your experiment by its id (100 in this case). 
 
 ## Authors
 
