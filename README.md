@@ -47,7 +47,7 @@ Obs: restoring this dump would require at least 100 Gb of free space. If your Op
 6. Assert Maven is correctly installed. In a Terminal enter with the command: `mvn --version`. This should return the version of Maven. 
 
 
-## Setting parameters
+## Setting Parameters
 
 Edit the file *application.properties* under *src/main/resources* and set the parameters bellow "##### INPUT PARAMETERS #####". The file comes with default values for simulating DupPredictor original work. You need to fill only two variables: `spring.datasource.password=YOUR_DB_PASSWORD` and `mallet.dir = YOUR_MALLET_DIR`. Change `spring.datasource.username` if your db user is not postgres. 
 
@@ -90,7 +90,7 @@ maxCreationDate = 2011-10-01
 lote = 1
 ```
 
-## Running the experiment - the quickest way
+## Running the Experiment - the quickest way
 
 1. Leave the file *application.properties* with default values. In a terminal, go to the Project_folder and build the jar file with the Maven command: `mvn package -Dmaven.test.skip=true`. Assert that duppredictor.jar is built under target folder. 
 
@@ -99,7 +99,7 @@ lote = 1
 Obs: the complete test where LDA is enabled take too long, so the default parameters have LDA disabled. If you want to perform a full test, go to the the next section. 
 
 
-## Running the experiment - other options 
+## Running the Eexperiment - other options 
 
 1. Edit the file *application.properties*. 
 
