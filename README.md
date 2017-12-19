@@ -90,7 +90,7 @@ maxCreationDate = 2011-10-01
 lote = 1
 ```
 
-## Running the Experiment - the quickest way
+## Running the experiment with the preprocessed database (recommended)
 
 1. Leave the file *application.properties* with default values. In a terminal, go to the Project_folder and build the jar file with the Maven command: `mvn package -Dmaven.test.skip=true`. Assert that duppredictor.jar is built under target folder. 
 
@@ -99,7 +99,7 @@ lote = 1
 Obs: the complete test where LDA is enabled take too long, so the default parameters have LDA disabled. If you want to perform a full test, go to the the next section. 
 
 
-## Running the Eexperiment - other options 
+## Running the experiment with the raw database (optional)
 
 1. Edit the file *application.properties*. 
 
