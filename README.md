@@ -125,7 +125,7 @@ where e.id = r.experiment_id
 and app = 'DupPredictor'
 --and e.estimateweights=true
 --and e.lote=100
-order by e.id desc`
+order by e.id desc
 ```
 this query shows the number of tested questions, the observation filled in *application.properties* file and several values for recall rates. You can uncomment `and e.estimateweights=true` to filter only the results for option *Estimating weights* phase or `and e.lote=100` to filter your experiment by its id (100 in this case). You can also select any column from tables **experiment** and **recallrate**. 
 
