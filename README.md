@@ -3,7 +3,7 @@ A replication package of DupPredictor original [work]
 
 ### Prerequisites
 
-Note: all the experiments were conducted over a server equipped with 80 GB RAM, 2.4 GHz on twelve cores and 64-bit Linux Mint Cinnamon operating system. We strongly recommend a similar or better hardware environment. Operation System however can be changed. 
+Note: all the experiments were conducted over a server equipped with 80 GB RAM, 2.4 GHz on twelve cores and 64-bit Linux Mint Cinnamon operating system. We strongly recommend a similar or better hardware environment. The operating system however could be changed. 
 
 Softwares:
 1. [Java 1.8] 
@@ -24,7 +24,7 @@ host    all             all             127.0.0.1/32            md5
 5. [Maven 3](https://maven.apache.org/)
 
 ### Installing the app.
-1. Download the SO Dump of March 2017. We provide two dumps where both contains the main tables we use. They differs only in **posts** table. In [Dump 1](http://lascam.facom.ufu.br/companion/duplicatequestion/backup_so_2017_raw_basic_tables_ok.backup), the table is stemmed and had the stop words removed. Also it has the synonyms of tags and code blocks already extracted. In [Dump 2](...), the table contains the original content. The next steps are described considered the fastest way to reproduce DupPredictor, in other words, for Dump 1. If you desire to simulate the entire process, including the stemming and stop words removal, follow the instructions available in [preprocess], then proceed in next steps.
+1. Download the SO Dump of March 2017. We provide two dumps where both contains the main tables we use. They differ only in **posts** table. In [Dump 1](http://lascam.facom.ufu.br/companion/duplicatequestion/backup_so_2017_raw_basic_tables_ok.backup), the table is stemmed and had the stop words removed. Also it has the synonyms of tags and code blocks already extracted. In [Dump 2](...), the table contains the original raw content. The next steps are described considering the fastest way to reproduce DupPredictor, in other words, for Dump 1. If you desire to simulate the entire process, including the stemming and stop words removal, follow the instructions available in [preprocess] step, then proceed with the next steps.
 
 2. On your DB tool, create a new database named stackoverflow2017. This is a query example:
 ```
@@ -38,9 +38,9 @@ CREATE DATABASE stackoverflow2017
 ```
 3. Restore the downloaded dump to the created database. 
 
-Obs: restoring this dump would require at least 100 Gb of free space. If your Operation System runs in a partition with insufficient free space, create a tablespace pointing to a larger partition and associate the database to it by replacing the "TABLESPACE" value to the new tablespace name: `TABLESPACE = tablespacename`. 
+Obs: restoring this dump would require at least 100 Gb of free space. If your operating system runs in a partition with insufficient free space, create a tablespace pointing to a larger partition and associate the database to it by replacing the "TABLESPACE" value to the new tablespace name: `TABLESPACE = tablespacename`. 
 
-4. Assert that the database is sound. Execute the following SQL command: `select title,body,tags,tagssyn,code  from posts where title is not null limit 10`. The return should list the main fields for 10 posts. 
+4. Assert the database is sound. Execute the following SQL command: `select title,body,tags,tagssyn,code  from posts where title is not null limit 10`. The return should list the main fields for 10 posts. 
 
 5. Assert your Mallet instalation is sound. In a Terminal, go to your Mallet folder and execute the command: `bin/mallet --help`. This should return a list of commands. 
 
