@@ -96,7 +96,7 @@ lote = 1
 
 2. Go to Project_folder/target and run the command to execute DupPredictorRep: `java -Xms1024M -Xmx70g -jar ./duppredictor.jar`. The Xmx value may be bigger if you change the "maxCreationDate" parameter to a more recent date. 
 
-Obs: the complete test where LDA is enabled take too long, so the default parameters have LDA disabled. If you want to perform a full test, go to the the next section. 
+Obs: the complete test where LDA is enabled takes too long, so the default parameters have LDA disabled. If you want to perform a full test, go to the the next section. 
 
 
 ## Running the experiment with the raw database (optional)
