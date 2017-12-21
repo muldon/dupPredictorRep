@@ -96,7 +96,7 @@ lote = 1
 
 2. Go to Project_folder/target and run the command to execute DupPredictorRep: `java -Xms1024M -Xmx70g -jar ./duppredictor.jar`. The Xmx value may be bigger if you change the "maxCreationDate" parameter to a more recent date. 
 
-Obs: the complete test where LDA is enabled takes too long, so the default parameters have LDA disabled. If you want to perform a full test, go to the the next section. 
+Obs: this experiment lasts approximately 35 hours. The complete test where LDA is enabled takes too long, so the default parameters have LDA disabled. If you want to perform a full test, go to the the next section. 
 
 
 ## Running the experiment with the raw database (optional)
@@ -113,7 +113,7 @@ First, enable topics by setting `useLDA = true`, `buildMalletTopicFiles = true`,
 
 Second, run mallet commands (this is a lot faster than running through the app): in a terminal, go to your *mallet.dir* folder and execute `bin/mallet import-dir --input topics --output topic.mallet --keep-sequence`. Use the generated file *topic.mallet* to train topics by executing the command: `bin/mallet train-topics --input topic.mallet --num-topics 100 --output-state topic-state.gz --output-topic-keys topics_keys.txt --output-doc-topics topics_duppredictor.txt`. 
 
-Third, set variables: `useLDA = true`, `buildMalletTopicFiles = false`, `loadVectorsToDB = true`, `calculateRecallRates = true`. Leave the other variables in their default values. Run the app (see **Running the experiment - the quickest way**). 
+Third, set variables: `useLDA = true`, `buildMalletTopicFiles = false`, `loadVectorsToDB = true`, `calculateRecallRates = true`. Leave the other variables in their default values. Run the app (see **Running the experiment - the quickest way**). This experiment lasts approximately 54 hours.
 
 ### Results
 
