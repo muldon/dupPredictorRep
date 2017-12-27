@@ -7,6 +7,7 @@ import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.lucene.queryparser.classic.ParseException;
 
 public class CosineSimilarity {
@@ -102,6 +103,9 @@ public class CosineSimilarity {
 	}
 	
 	public static double getCosineSimilarity(String string1, String string2) throws IOException, ParseException {
+		if (StringUtils.isBlank(string1) ||StringUtils.isBlank(string2) ) {
+			return 0d;
+		}
 		CosineSimilarity cs1 = new CosineSimilarity();
 		double sim_score = cs1.getCosineSimilarityScore(string1,string2);				
 		cs1 = null;		
