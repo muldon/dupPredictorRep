@@ -1,5 +1,5 @@
 # DupPredictorRep
-A replication package of DupPredictor original [work] 
+A replication package of DupPredictor original [work] If you are using this source code, please cite our [paper](https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=8330262).
 
 ### Prerequisites
 
