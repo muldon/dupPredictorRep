@@ -19,7 +19,7 @@ local   all             all                                     md5
 host    all             all             127.0.0.1/32            md5
 ...
 ```
-3. [PgAdmin] (we used PgAdmin 3) but feel free to use any DB tool for PostgreSQL. 
+4. [PgAdmin] (we used PgAdmin 3) but feel free to use any DB tool for PostgreSQL. 
 
 5. [Maven 3](https://maven.apache.org/)
 
